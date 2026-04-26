@@ -404,8 +404,8 @@ do
 			Items.Stroke:Tween({ Transparency = 0 })
 			Items.Button:Tween({ BackgroundTransparency = 0 })
 
-			Items.Page:TweenDescendants(true, self)
 			Items.Page.Parent = self.Parent
+			Items.Page:TweenDescendants(true, self)
 
 			Window.TabInfo = self
 		end
@@ -1627,8 +1627,8 @@ do
 			Items.Stroke:Tween({ Transparency = 0 })
 			Items.Button:Tween({ BackgroundTransparency = 0 })
 
-			Items.Page:TweenDescendants(true, self)
 			Items.Page.Parent = self.Parent
+			Items.Page:TweenDescendants(true, self)
 
 			self.Colorpicker.OldTab = self
 		end
@@ -2689,6 +2689,16 @@ do
 					end
 				end
 
+				if not FadingAnimation then
+					Path.Tweening = false
+					if Instance:IsA("ScreenGui") then
+						Instance.Enabled = Bool
+					else
+						Instance.Visible = Bool
+					end
+					return
+				end
+
 				Library:Connect(FadingAnimation.Completed, function()
 					Path.Tweening = false
 					if Instance:IsA("ScreenGui") then
@@ -3709,6 +3719,7 @@ do
 				-- // Player list
 				Items.PlayerlistHolder = Library:Create("CanvasGroup", {
 					GroupTransparency = 1,
+					Visible = false,
 					Parent = Library.HUD.Instance,
 					Position = UDim2.new(0, 500, 0, 120),
 					Size = UDim2.new(0, 420, 0, 320),
@@ -4049,6 +4060,7 @@ do
 
 			function Cfg.Playerlist:SetVisibility(Bool)
 				Cfg.Playerlist.Visible = Bool
+				Items.PlayerlistHolder.Instance.Visible = Bool
 				Items.PlayerlistHolder:Tween({ GroupTransparency = Bool and 0 or 1 })
 			end
 
